@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import List from './List';
+import GroceryForm from './GroceryForm'
 
 class App extends Component {
   state = {
@@ -14,7 +15,10 @@ class App extends Component {
     const { groceries } = this.state;
 
     return (
-      <List name="Grocery List" items={groceries} />
+      <div>
+        <GroceryForm />
+        <List name="Grocery List" items={groceries} />
+      </div>
     );
   }
 }
