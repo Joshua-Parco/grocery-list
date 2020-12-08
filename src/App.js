@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import List from './List';
-import GroceryForm from './GroceryForm'
+import GroceryForm from './GroceryForm';
+import Grocery from './Grocery';
 
 class App extends Component {
   state = {
@@ -10,6 +11,21 @@ class App extends Component {
       { id: 3, name: "Broccoli", complete: false, },
     ]
   };
+
+  handleClick = (id) => {
+    const { groceries } = this.state;
+    this.setState({
+      groceries: groceries.map ( grocery => {
+        if (grocery.id === id) {
+          return {
+            ...grocery,
+            complete: !grocery.complete
+          }
+        }
+        return grocery
+      })
+    })
+  }
 
   getUniqId = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -29,7 +45,7 @@ class App extends Component {
     return (
       <div>
         <GroceryForm addItem={this.addItem} />
-        <List name="Grocery List" items={groceries} />
+        <List name="Grocery List" items={groceries} groceryClick={this.handleClick} />
       </div>
     );
   }
