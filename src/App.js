@@ -11,12 +11,24 @@ class App extends Component {
     ]
   };
 
+  getUniqId = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+
+  addItem = (name) => {
+    const { groceries } = this.state;
+    const grocery = { name, id: this.getUniqId() , complete: false }
+    this.setState({ groceries: [grocery, ...groceries] });
+  }
+
   render() {
     const { groceries } = this.state;
 
     return (
       <div>
-        <GroceryForm />
+        <GroceryForm addItem={this.addItem} />
         <List name="Grocery List" items={groceries} />
       </div>
     );
